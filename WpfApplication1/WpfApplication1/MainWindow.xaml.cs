@@ -19,15 +19,14 @@ namespace WpfApplication1
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+     
     public partial class MainWindow : Window
     {
-
-        List<string> imagePaths;
 
         public MainWindow()
         {
             InitializeComponent();
-            imagePaths = new List<string>();
+            
         }
 
         private void FindFile(object sender, RoutedEventArgs e)
@@ -46,8 +45,7 @@ namespace WpfApplication1
                 //add items to list
                 for (int i = 0; i < dialog1.FileNames.Length; i++)
                 {
-                    imagePaths.Add(dialog1.FileNames.ElementAt(i));
-                    imageListBox.Items.Add(dialog1.SafeFileNames.ElementAt(i));
+                    imageListBox.Items.Add(dialog1.FileNames.ElementAt(i));
                 }
                 //if there wasent anything selected then select the first item
                 if (imageListBox.SelectedIndex == -1)
@@ -76,7 +74,7 @@ namespace WpfApplication1
                 BitmapImage Im = new BitmapImage();
                 Im.BeginInit();
                 //Selected value returns an Object so an explicit cast is needed
-                Im.UriSource = new Uri(imagePaths.ElementAt(imageListBox.SelectedIndex), UriKind.Absolute);
+                Im.UriSource = new Uri((string)imageListBox.Items.GetItemAt(imageListBox.SelectedIndex), UriKind.Absolute);
                 Im.EndInit();
                 //set the image
                 imageDisplay.Source = Im;
@@ -91,7 +89,6 @@ namespace WpfApplication1
                 int oldIndex = imageListBox.SelectedIndex;
 
                 //remove items
-                imagePaths.RemoveAt(imageListBox.SelectedIndex);
                 imageListBox.Items.RemoveAt(imageListBox.SelectedIndex);
 
                 //if the old index is still acceptable
