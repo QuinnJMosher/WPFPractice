@@ -113,5 +113,16 @@ namespace WpfApplication1
                 }
             }
         }
+
+        private void GeneratePreview(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ExportFile(object sender, RoutedEventArgs e)
+        {
+
+        }
+
     }
 }
