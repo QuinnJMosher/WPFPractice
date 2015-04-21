@@ -10,16 +10,16 @@ namespace ConsoleApplication1
 {
     class Atlas
     {
-        public BitmapImage image;
+        public RenderTargetBitmap image;
 
         public int width;
         public int height;
 
         public List<Sprite> sprites;
 
-        private Atlas()
+        public Atlas()
         {
-            image = new BitmapImage();
+            image = new RenderTargetBitmap();
             width = 0;
             height = 0;
             sprites = new List<Sprite>();
