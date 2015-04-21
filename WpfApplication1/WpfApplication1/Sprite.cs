@@ -29,6 +29,11 @@ namespace WpfApplication1
             height = image.PixelHeight;
         }
 
-        //meathods (none)
-    }
+        //meathods
+
+        public override string toString() {
+            return safeName;
+        }
+        
+   }
 }
