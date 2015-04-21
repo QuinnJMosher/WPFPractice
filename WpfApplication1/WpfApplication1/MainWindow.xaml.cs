@@ -45,7 +45,8 @@ namespace WpfApplication1
                 //add items to list
                 for (int i = 0; i < dialog1.FileNames.Length; i++)
                 {
-                    imageListBox.Items.Add(dialog1.FileNames.ElementAt(i));
+                   //imageListBox.Items.Add(dialog1.FileNames.ElementAt(i));
+                    imageListBox.Items.Add(new Sprite(new Uri(dialog1.FileNames.ElementAt(i), UriKind.Absolute)));
                 }
                 //if there wasent anything selected then select the first item
                 if (imageListBox.SelectedIndex == -1)
@@ -71,13 +72,13 @@ namespace WpfApplication1
             if (imageListBox.SelectedIndex != -1)
             {
                 //create and setup image object
-                BitmapImage Im = new BitmapImage();
-                Im.BeginInit();
-                //Selected value returns an Object so an explicit cast is needed
-                Im.UriSource = new Uri((string)imageListBox.Items.GetItemAt(imageListBox.SelectedIndex), UriKind.Absolute);
-                Im.EndInit();
+                //BitmapImage Im = new BitmapImage();
+                //Im.BeginInit();
+                ////Selected value returns an Object so an explicit cast is needed
+                //Im.UriSource = new Uri((string)imageListBox.Items.GetItemAt(imageListBox.SelectedIndex), UriKind.Absolute);
+                //Im.EndInit();
                 //set the image
-                imageDisplay.Source = Im;
+                imageDisplay.Source = ((Sprite)imageListBox.Items.GetItemAt(imageListBox.SelectedIndex)).image;
             }
         }
 
