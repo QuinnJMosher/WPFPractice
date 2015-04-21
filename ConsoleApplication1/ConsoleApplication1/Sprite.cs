@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using System.Windows.Media.Imaging;
 
-namespace WpfApplication1
+namespace ConsoleApplication1
 {
     class Sprite
     {
