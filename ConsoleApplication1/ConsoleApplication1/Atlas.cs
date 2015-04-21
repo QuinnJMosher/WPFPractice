@@ -19,10 +19,10 @@ namespace ConsoleApplication1
 
         public Atlas()
         {
-            image = new RenderTargetBitmap();
+            image = null;
             width = 0;
             height = 0;
-            sprites = new List<Sprite>();
+            sprites = null;
         }
     }
 }

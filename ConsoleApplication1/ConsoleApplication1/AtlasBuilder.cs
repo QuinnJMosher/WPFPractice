@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-using System.Windows.Rect;
+using System.Windows;
 
 namespace ConsoleApplication1
 {
     static class AtlasBuilder
     {
         //options
-        public bool powerOfTwo = false;
-        public int _padding = 2;
-        public int Padding
+        public static bool powerOfTwo = false;
+        public static int _padding = 2;
+        public static int Padding
         {
             get
             {
@@ -35,10 +35,10 @@ namespace ConsoleApplication1
             }
         }
 
-        private Atlas working_atlas;
+        private static Atlas working_atlas;
 
         //primary meathod
-        public Atlas CreateAtlas(List<Sprite> in_spriteList)
+        public static Atlas CreateAtlas(List<Sprite> in_spriteList)
         {
             working_atlas = new Atlas();
             working_atlas.sprites = new List<Sprite>(in_spriteList);
@@ -53,7 +53,7 @@ namespace ConsoleApplication1
         }
 
         //helper meathods
-        private void CalculateSize()
+        private static void CalculateSize()
         {
             int atlas_width = 0;
             for (int i = 0; i < working_atlas.sprites.Count; i++)
@@ -75,7 +75,7 @@ namespace ConsoleApplication1
             working_atlas.height = atlas_height;
         }
 
-        private void ReadySprites()
+        private static void ReadySprites()
         {
             int currentX = 0, currentY = 0;
             int lastLineTallest = 0;
@@ -107,7 +107,7 @@ namespace ConsoleApplication1
             }
         }
 
-        private void BuildAtlasImmage()
+        private static void BuildAtlasImmage()
         {
             //create bitmap frames
             BitmapFrame[] frames = new BitmapFrame[working_atlas.sprites.Count];
@@ -124,7 +124,7 @@ namespace ConsoleApplication1
             {
                 for (int i = 0; i < frames.Length; i++)
                 {
-                    context.DrawImage(frames[i], new System.Windows.Rect(working_atlas.sprites[i].posX, working_atlas.sprites[i].posY, working_atlas.sprites[i].width, working_atlas.height));
+                    context.DrawImage(frames[i], new Rect(working_atlas.sprites[i].posX, working_atlas.sprites[i].posY, working_atlas.sprites[i].width, working_atlas.height));
                 }
             }
 
