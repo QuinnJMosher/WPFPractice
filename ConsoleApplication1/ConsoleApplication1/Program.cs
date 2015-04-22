@@ -14,16 +14,21 @@ namespace ConsoleApplication1
                             "flat_medal2.png",
                             "flat_medal3.png"
                          };
+        public static string saveFolder = "C:\\Users\\quinn.mosher\\Pictures\\SpritePackTest\\";
+        public static string saveName = "SpritePackerTest0.png";
 
         static void Main(string[] args)
         {
-            Console.WriteLine("file image test:");
+            List<Sprite> sprites = new List<Sprite>();
 
             for (int i = 0; i < files.Length; i++)
             {
-                Console.WriteLine(folder + files[i]);
+                sprites.Add(new Sprite(new Uri(folder + files[i])));
             }
-            Console.ReadLine();
+
+            Atlas atlas = AtlasBuilder.CreateAtlas(sprites);
+
+            //Console.ReadLine();
         }
     }
 }
