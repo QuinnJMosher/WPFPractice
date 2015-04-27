@@ -11,11 +11,11 @@ namespace ConsoleApplication1
         public static string folder = "C:\\Users\\quinn.mosher\\Pictures\\kenny_medals\\";
         public static string[] files = {
                             "flat_medal1.png",
-                            "flat_medal2.png",
-                            "flat_medal3.png"
+                            "flat_medal3.png",
+                            "flat_medal4.png"
                          };
         public static string saveFolder = "C:\\Users\\quinn.mosher\\Pictures\\SpritePackTest\\";
-        public static string saveName = "SpritePackerTest0.png";
+        public static string saveName = "SpritePackerTest1.png";
 
         static void Main(string[] args)
         {
@@ -27,6 +27,8 @@ namespace ConsoleApplication1
             }
 
             Atlas atlas = AtlasBuilder.CreateAtlas(sprites);
+
+            BitmapSaver.SaveBitmap(atlas.GetBitmapImage(), saveFolder + saveName);
 
             //Console.ReadLine();
         }

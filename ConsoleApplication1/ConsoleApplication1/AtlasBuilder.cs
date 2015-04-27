@@ -45,7 +45,7 @@ namespace ConsoleApplication1
 
             CalculateSize();
             ReadySprites();
-            //draw Atlas
+            BuildAtlasImage();
 
             Atlas output = working_atlas;
             working_atlas = null;
@@ -107,7 +107,7 @@ namespace ConsoleApplication1
             }
         }
 
-        private static void BuildAtlasImmage()
+        private static void BuildAtlasImage()
         {
             //create bitmap frames
             BitmapFrame[] frames = new BitmapFrame[working_atlas.sprites.Count];
