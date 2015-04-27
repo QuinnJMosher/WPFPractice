@@ -115,14 +115,31 @@ namespace WpfApplication1
             }
         }
 
+        private BitmapImage GenrateImage()
+        {
+            //convert listbox list to list of sprites
+            List<Sprite> spritelist = new List<Sprite>();
+            for (int i = 0; i < imageListBox.Items.Count; i++)
+            {
+                spritelist.Add((Sprite)imageListBox.Items.GetItemAt(i));
+            }
+            //create image 
+            Atlas atl = AtlasBuilder.CreateAtlas(spritelist);
+            //return
+            return atl.GetBitmapImage();
+        }
+
         private void GeneratePreview(object sender, RoutedEventArgs e)
         {
-
+            //generate image
+            //put it in the uiImage
         }
 
         private void ExportFile(object sender, RoutedEventArgs e)
         {
-
+            //open savefiledialoug
+            //generate image
+            //save image (check for exceptions!)
         }
 
     }

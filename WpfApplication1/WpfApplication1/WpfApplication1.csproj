@@ -54,6 +54,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Atlas.cs" />
+    <Compile Include="AtlasBuilder.cs" />
+    <Compile Include="BitmapSaver.cs" />
     <Compile Include="Sprite.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

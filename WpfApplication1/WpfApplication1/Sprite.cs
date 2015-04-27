@@ -14,8 +14,8 @@ namespace WpfApplication1
         public string safeName;
         public BitmapImage image;
 
-        public float posX;
-        public float posY;
+        public int posX;
+        public int posY;
 
         public int width;
         public int height;
