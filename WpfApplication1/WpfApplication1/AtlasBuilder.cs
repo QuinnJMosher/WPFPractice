@@ -40,6 +40,12 @@ namespace WpfApplication1
         //primary meathod
         public static Atlas CreateAtlas(List<Sprite> in_spriteList)
         {
+
+            if (in_spriteList.Count == 0)
+            {
+                return null;
+            } 
+
             working_atlas = new Atlas();
             working_atlas.sprites = new List<Sprite>(in_spriteList);
 

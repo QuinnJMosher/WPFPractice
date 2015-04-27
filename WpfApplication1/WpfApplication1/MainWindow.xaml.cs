@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Forms;
+using System.Security;
 
 namespace WpfApplication1
 {
@@ -35,7 +36,7 @@ namespace WpfApplication1
             OpenFileDialog dialog1 = new OpenFileDialog();
             //set dialog settings
             dialog1.Multiselect = true;
-            dialog1.Filter = "Image Files (*.bmp;*.jpg;*.gif)|*.bmp;*.jpg;*.gif";
+            dialog1.Filter = "Image Files (*.bmp;*.jpg;*.gif;*.png)|*.bmp;*.jpg;*.gif;*.png";
             //open window and get how it closed
             System.Windows.Forms.DialogResult result = dialog1.ShowDialog();
 
@@ -59,6 +60,15 @@ namespace WpfApplication1
 
         private void ClearAll(object sender, RoutedEventArgs e)
         {
+
+            MessageBoxResult result = System.Windows.MessageBox.Show("Are you sure that you want to clear all images?", "Clear All", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result != MessageBoxResult.Yes)
+            {
+                return;
+            }
+
+
             //set index to unselected
             imageListBox.SelectedIndex = -1;
             imageListBox.Items.Clear();
@@ -115,7 +125,7 @@ namespace WpfApplication1
             }
         }
 
-        private BitmapImage GenrateImage()
+        private BitmapImage GenerateImage()
         {
             //convert listbox list to list of sprites
             List<Sprite> spritelist = new List<Sprite>();
@@ -123,23 +133,68 @@ namespace WpfApplication1
             {
                 spritelist.Add((Sprite)imageListBox.Items.GetItemAt(i));
             }
+
             //create image 
             Atlas atl = AtlasBuilder.CreateAtlas(spritelist);
+
+            if (atl == null)
+            {
+                return null;
+            }
             //return
             return atl.GetBitmapImage();
         }
 
         private void GeneratePreview(object sender, RoutedEventArgs e)
         {
-            //generate image
-            //put it in the uiImage
+            imageDisplay.Source = GenerateImage();
+            imageListBox.SelectedIndex = -1;
         }
 
         private void ExportFile(object sender, RoutedEventArgs e)
         {
+            //check for content
+            if (imageListBox.Items.Count < 1)
+            {
+                System.Windows.MessageBox.Show("Cannot Create files for 0 images", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             //open savefiledialoug
+            SaveFileDialog saveDialog = new SaveFileDialog();
+            saveDialog.Filter = "PNG Image (*.png)|*.png";
+
+            System.Windows.Forms.DialogResult diagResult = saveDialog.ShowDialog();
+
+            if (diagResult != System.Windows.Forms.DialogResult.OK)
+            {
+                return;
+            }
+
+            string fileExt = System.IO.Path.GetExtension(saveDialog.FileName);
+
+            if (fileExt.ToLower().CompareTo(".png") != 0)
+            {
+                System.Windows.MessageBox.Show("Invalid File Type", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             //generate image
+            BitmapImage savedImage = GenerateImage();
+
             //save image (check for exceptions!)
+            try
+            {
+                BitmapSaver.SaveBitmap(savedImage, saveDialog.FileName);
+            }
+            catch (SecurityException ex)
+            {
+                System.Windows.MessageBox.Show("Security Error: you may not have the permissions required: " + ex.Message, "Security Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show("Unknown Error: " + ex.Message, "Unknown Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
     }

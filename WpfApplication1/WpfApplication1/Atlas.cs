@@ -28,6 +28,12 @@ namespace WpfApplication1
 
         public BitmapImage GetBitmapImage()
         {
+
+            if (image == null)
+            {
+                return null;
+            } 
+
             BitmapImage atlasImg = new BitmapImage();
 
             PngBitmapEncoder encoder = new PngBitmapEncoder();
