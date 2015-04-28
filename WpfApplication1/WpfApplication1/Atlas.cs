@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Media.Imaging;
 
+using System.Xml.Linq;
+
 namespace WpfApplication1
 {
     class Atlas
@@ -18,12 +20,15 @@ namespace WpfApplication1
 
         public List<Sprite> sprites;
 
+        public XDocument xmlDoc;
+
         public Atlas()
         {
             image = null;
             width = 0;
             height = 0;
             sprites = null;
+            xmlDoc = null;
         }
 
         public BitmapImage GetBitmapImage()

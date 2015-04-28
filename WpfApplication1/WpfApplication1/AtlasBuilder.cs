@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 using System.Windows;
+using System.Xml.Linq;
 
 namespace WpfApplication1
 {
@@ -52,6 +53,7 @@ namespace WpfApplication1
             CalculateSize();
             ReadySprites();
             BuildAtlasImage();
+            //build xml doc
 
             Atlas output = working_atlas;
             working_atlas = null;
@@ -143,5 +145,36 @@ namespace WpfApplication1
             working_atlas.image = atlas_bmp;
         }
 
+        private static void BuildXMLDoc()
+        {
+
+            Object[] XMLelem = new Object[working_atlas.sprites.Count];
+
+            for (int i = 0; i < working_atlas.sprites.Count; i++)
+            {
+                XElement node = new XElement("Sprite");
+
+                //shortcut var
+                Sprite Current = working_atlas.sprites[i];
+
+                node.SetAttributeValue("name", Current.safeName);
+                node.SetAttributeValue("x", Current.posX);
+                node.SetAttributeValue("y", Current.posY);
+                node.SetAttributeValue("width", Current.width);
+                node.SetAttributeValue("height", Current.height);
+
+                XMLelem[i] = node;
+            }
+
+            XElement XMLRoot = new XElement("TextureAtlas", XMLelem);
+            XMLRoot.SetAttributeValue("SheetName", "");
+
+            XDeclaration Declaration = new XDeclaration("1.0", "utf-8", "yes");
+
+            XDocument Document = new XDocument(Declaration, XMLRoot);
+
+            working_atlas.xmlDoc = Document;
+
+        }
     }
 }
