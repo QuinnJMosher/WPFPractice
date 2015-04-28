@@ -53,7 +53,7 @@ namespace WpfApplication1
             CalculateSize();
             ReadySprites();
             BuildAtlasImage();
-            //build xml doc
+            BuildXMLDoc();
 
             Atlas output = working_atlas;
             working_atlas = null;

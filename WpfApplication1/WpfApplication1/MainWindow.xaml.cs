@@ -125,7 +125,7 @@ namespace WpfApplication1
             }
         }
 
-        private BitmapImage GenerateImage()
+        private Atlas GenerateAtlas()
         {
             //convert listbox list to list of sprites
             List<Sprite> spritelist = new List<Sprite>();
@@ -142,12 +142,13 @@ namespace WpfApplication1
                 return null;
             }
             //return
-            return atl.GetBitmapImage();
+            return atl;
         }
 
         private void GeneratePreview(object sender, RoutedEventArgs e)
         {
-            imageDisplay.Source = GenerateImage();
+            Atlas atlas = GenerateAtlas();
+            imageDisplay.Source = atlas.GetBitmapImage();
             imageListBox.SelectedIndex = -1;
         }
 
@@ -179,13 +180,38 @@ namespace WpfApplication1
                 return;
             }
 
-            //generate image
-            BitmapImage savedImage = GenerateImage();
+            //create the name for the xml doc
+            string xmlName = saveDialog.FileName.Substring(0, saveDialog.FileName.Length - fileExt.Length);//subtract the file extention's length to get the filepath w/o the file ext
+            xmlName += "_atlas.xml"; //adds a prefix to help asociate this xml doc with the image and also adding the .xml ext
 
-            //save image (check for exceptions!)
+            string fileNameOnly = saveDialog.FileName;
+
+            int lastSlash = fileNameOnly.Length - 1;
+            //find whaere the last slash in the filename is
+            while (lastSlash >= 0 && fileNameOnly[lastSlash] != '\\') {
+                lastSlash--;
+            }
+
+            //we want our string to be from one ahead of the last slash in the path because that's when the actual filename begins
+            fileNameOnly = fileNameOnly.Substring(lastSlash + 1, fileNameOnly.Length - lastSlash - 1);
+
+            //generate image
+            Atlas atlas = GenerateAtlas();
+
+            //set the sheetname of the atlas to point to the bitmap because we didn't know this when we made it
+            atlas.xmlDoc.Element("TextureAtlas").SetAttributeValue("SheetName", fileNameOnly);
+
+            BitmapImage savedImage = atlas.GetBitmapImage();
+
+            //save image (check for exceptions!) //also saves and catches saving the xml
             try
             {
+                //save image
                 BitmapSaver.SaveBitmap(savedImage, saveDialog.FileName);
+
+                //save bitmap
+                atlas.xmlDoc.Save(xmlName);
+
             }
             catch (SecurityException ex)
             {

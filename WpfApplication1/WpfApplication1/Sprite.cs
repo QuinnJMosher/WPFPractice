@@ -24,7 +24,7 @@ namespace WpfApplication1
         public Sprite(Uri path)
         {
             image = new BitmapImage(path);
-            safeName = path.Segments[path.Segments.Length - 1].Substring(1);
+            safeName = path.Segments[path.Segments.Length - 1];
             width = image.PixelWidth;
             height = image.PixelHeight;
         }

@@ -15,7 +15,7 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <TextBlock FontSize="12" FontFamily="Verdana" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">Selected File:</TextBlock>
-        <Image Name="imageDisplay" Stretch="None" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"/>
+        <Image Name="imageDisplay" Stretch="Uniform"  Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"/>
         <Button FontSize="7" Width="49" Height="23" Grid.Column="2" Grid.Row="1" Click="FindFile" Margin="10,10,88,14">Select Images</Button>
         <Button FontSize="7" Width="23" Height="23" Grid.Column="2" Grid.Row="1" Click="ClearAll" Margin="114,10,10,14">Cl All</Button>
         <Button FontSize="7" Width="23" Height="23" Grid.Column="2" Grid.Row="1" Click="ClearSelected" RenderTransformOrigin="-1.45,0.7" Margin="86,10,38,14">Clear Image</Button>
