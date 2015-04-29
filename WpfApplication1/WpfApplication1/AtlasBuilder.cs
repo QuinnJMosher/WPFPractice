@@ -152,7 +152,7 @@ namespace WpfApplication1
 
             for (int i = 0; i < working_atlas.sprites.Count; i++)
             {
-                XElement node = new XElement("Sprite");
+                XElement node = new XElement("Contains");
 
                 //shortcut var
                 Sprite Current = working_atlas.sprites[i];

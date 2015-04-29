@@ -18,7 +18,7 @@ using System.Security;
 namespace WpfApplication1
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Uses.xaml
     /// </summary>
      
     public partial class MainWindow : Window
@@ -27,7 +27,7 @@ namespace WpfApplication1
         public MainWindow()
         {
             InitializeComponent();
-            
+
         }
 
         private void FindFile(object sender, RoutedEventArgs e)
