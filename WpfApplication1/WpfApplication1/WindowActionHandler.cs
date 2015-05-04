@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows;
+using System.Windows.Media.Imaging;
 
 namespace WpfApplication1
 {
@@ -78,6 +79,69 @@ namespace WpfApplication1
             }
         }
 
+        private static Atlas GenerateAtlas(ListBox targetList)
+        {
+            //convert listbox list to list of sprites
+            List<Sprite> spritelist = new List<Sprite>();
+            for (int i = 0; i < targetList.Items.Count; i++)
+            {
+                spritelist.Add((Sprite)targetList.Items.GetItemAt(i));
+            }
+
+            //create image 
+            Atlas atl = AtlasBuilder.CreateAtlas(spritelist);
+
+            if (atl == null)
+            {
+                return null;
+            }
+            //return
+            return atl;
+        }
+
+
+        public static void GeneratePreview(ListBox listTarget, Image imageTarget)
+        {
+            List<Sprite> spriteList = new List<Sprite>();
+
+            Atlas atlas = GenerateAtlas(listTarget);
+            imageTarget.Source = atlas.GetBitmapImage();
+            listTarget.SelectedIndex = -1;
+        }
+
+        public static void Export(ListBox listTarget, string filename)
+        {
+            //create the name for the xml doc
+            string xmlName = filename.Substring(0, filename.Length - 4);//subtract the file extention's length to get the filepath w/o the file ext
+            xmlName += "_atlas.xml"; //adds a prefix to help asociate this xml doc with the image and also adding the .xml ext
+
+            string fileNameOnly = filename;
+
+            int lastSlash = fileNameOnly.Length - 1;
+            //find whaere the last slash in the filename is
+            while (lastSlash >= 0 && fileNameOnly[lastSlash] != '\\')
+            {
+                lastSlash--;
+            }
+
+            //we want our string to be from one ahead of the last slash in the path because that's when the actual filename begins
+            fileNameOnly = fileNameOnly.Substring(lastSlash + 1, fileNameOnly.Length - lastSlash - 1);
+
+            //generate image
+            Atlas atlas = GenerateAtlas(listTarget);
+
+            //set the sheetname of the atlas to point to the bitmap because we didn't know this when we made it
+            atlas.xmlDoc.Element("TextureAtlas").SetAttributeValue("SheetName", fileNameOnly);
+
+            BitmapImage savedImage = atlas.GetBitmapImage();
+
+            //these throw exceptions that will need to be handeled outside of this meathod
+            //save image
+            BitmapSaver.SaveBitmap(savedImage, filename);
+
+            //save bitmap
+            atlas.xmlDoc.Save(xmlName);
+        }
 
     }
 }
