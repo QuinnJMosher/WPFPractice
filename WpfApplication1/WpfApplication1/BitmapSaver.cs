@@ -12,7 +12,7 @@ namespace WpfApplication1
 {
     static class BitmapSaver
     {
-        //this throwes exceptions that it doesn't handel
+        //this throwes exceptions that it doesn't handle
         public static void SaveBitmap(BitmapImage savedImage, string savePath)
         {
             string fileExt = System.IO.Path.GetExtension(savePath);

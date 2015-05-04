@@ -58,6 +58,7 @@
     <Compile Include="AtlasBuilder.cs" />
     <Compile Include="BitmapSaver.cs" />
     <Compile Include="Sprite.cs" />
+    <Compile Include="WindowActionHandler.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
