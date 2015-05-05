@@ -9,11 +9,19 @@ using System.Windows.Media.Imaging;
 
 namespace WpfApplication1
 {
-    static class WindowActionHandler
+    public static class WindowActionHandler
     {
 
         public static void AddSprites(ListBox imageListBox, string[] FileNames)
         {
+            if (imageListBox == null)
+            {
+                return;
+            }
+            if (FileNames == null || FileNames.Count() == 0)
+            {
+                return;
+            }
             //add items to list
             for (int i = 0; i < FileNames.Length; i++)
             {
@@ -29,6 +37,15 @@ namespace WpfApplication1
 
         public static void ClearAll(ListBox listTarget, Image imageTarget)
         {
+            if (listTarget == null)
+            {
+                return;
+            }
+            else if (imageTarget == null)
+            {
+                return;
+            }
+
             //set index to unselected
             listTarget.SelectedIndex = -1;
             listTarget.Items.Clear();
@@ -102,8 +119,6 @@ namespace WpfApplication1
 
         public static void GeneratePreview(ListBox listTarget, Image imageTarget)
         {
-            List<Sprite> spriteList = new List<Sprite>();
-
             Atlas atlas = GenerateAtlas(listTarget);
             imageTarget.Source = atlas.GetBitmapImage();
             listTarget.SelectedIndex = -1;
