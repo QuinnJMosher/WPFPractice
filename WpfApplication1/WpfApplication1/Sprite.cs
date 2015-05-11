@@ -8,7 +8,7 @@ using System.Windows.Media.Imaging;
 
 namespace WpfApplication1
 {
-    class Sprite
+    public class Sprite
     {
         //vars
         public string safeName;
