@@ -132,7 +132,7 @@ namespace WpfApplication1
             {
                 for (int i = 0; i < frames.Length; i++)
                 {
-                    context.DrawImage(frames[i], new Rect(working_atlas.sprites[i].posX, working_atlas.sprites[i].posY, working_atlas.sprites[i].width, working_atlas.height));
+                    context.DrawImage(frames[i], new Rect(working_atlas.sprites[i].posX, working_atlas.sprites[i].posY, working_atlas.sprites[i].width, working_atlas.sprites[i].height));
                 }
             }
 
